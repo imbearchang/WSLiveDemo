@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/WSLiveDemo.iml" filepath="$PROJECT_DIR$/WSLiveDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WSLiveDemo.iml" filepath="$PROJECT_DIR$/WSLiveDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libWSLive/libWSLive.iml" filepath="$PROJECT_DIR$/libWSLive/libWSLive.iml" />
       <module fileurl="file://$PROJECT_DIR$/libWSLive/libWSLive.iml" filepath="$PROJECT_DIR$/libWSLive/libWSLive.iml" />
     </modules>
   </component>

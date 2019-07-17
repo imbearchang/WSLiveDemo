@@ -5,7 +5,8 @@
     android:id="@+id/activity_live"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wangshuo.wslive.wslivedemo.LiveActivity">
+    tools:context="com.wangshuo.wslive.wslivedemo.LiveActivity"
+    >
 
     <me.lake.librestreaming.ws.StreamLiveCameraView
         android:id="@+id/stream_previewView"

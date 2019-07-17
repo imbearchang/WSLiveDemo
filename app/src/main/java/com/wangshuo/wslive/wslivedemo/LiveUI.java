@@ -1,8 +1,10 @@
 package com.wangshuo.wslive.wslivedemo;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -33,6 +35,8 @@ public class LiveUI implements View.OnClickListener {
     private Button btnSwapCamera;
     private Button btnScreenshot;
     private Button btnMirror;
+    private EditText etRtmlUrl;
+
 
     private ImageView imageView;
 
@@ -76,12 +80,17 @@ public class LiveUI implements View.OnClickListener {
                 imageView.setVisibility(View.GONE);
             }
         });
+
+        etRtmlUrl = (EditText) activity.findViewById(R.id.et_rtmpUrl);
+        rtmpUrl = etRtmlUrl.getText().toString();
     }
 
     @Override
     public void onClick(View view) {
        switch (view.getId()){
            case R.id.btn_startStreaming://开始推流
+               rtmpUrl = etRtmlUrl.getText().toString();
+               Log.d("LiveUI", "Will stream to url: " + rtmpUrl);
                if(!liveCameraView.isStreaming()){
                    liveCameraView.startStreaming(rtmpUrl);
                }

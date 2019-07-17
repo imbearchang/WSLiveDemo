@@ -4,6 +4,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.LinkedList;
@@ -24,6 +25,7 @@ public class LiveActivity extends AppCompatActivity {
     private String rtmpUrl = "rtmp://ossrs.net/" + StatusBarUtils.getRandomAlphaString(3) + '/' + StatusBarUtils.getRandomAlphaDigitString(5);
 
     private LiveUI mLiveUI;
+    private EditText etRtmpUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,9 @@ public class LiveActivity extends AppCompatActivity {
         StatusBarUtils.setTranslucentStatus(this);
 
         initLiveConfig();
+        etRtmpUrl = (EditText) this.findViewById(R.id.et_rtmpUrl);
+        rtmpUrl = etRtmpUrl.getText().toString();
+//        rtmpUrl = "rtmp://a.rtmp.youtube.com/live2/tajd-zw1b-wm5t-3dgj";
         mLiveUI = new LiveUI(this,mLiveCameraView,rtmpUrl);
     }
 
@@ -44,13 +49,15 @@ public class LiveActivity extends AppCompatActivity {
         //参数配置 start
         streamAVOption = new StreamAVOption();
         streamAVOption.streamUrl = rtmpUrl;
+        streamAVOption.cameraIndex = 0;
+
         //参数配置 end
 
         mLiveCameraView.init(this, streamAVOption);
         mLiveCameraView.addStreamStateListener(resConnectionListener);
         LinkedList<BaseHardVideoFilter> files = new LinkedList<>();
         files.add(new GPUImageCompatibleFilter(new GPUImageBeautyFilter()));
-        files.add(new WatermarkFilter(BitmapFactory.decodeResource(getResources(),R.mipmap.live),new Rect(100,100,200,200)));
+        //files.add(new WatermarkFilter(BitmapFactory.decodeResource(getResources(),R.mipmap.live),new Rect(100,100,200,200)));
         mLiveCameraView.setHardVideoFilter(new HardVideoGroupFilter(files));
     }
 
@@ -58,18 +65,19 @@ public class LiveActivity extends AppCompatActivity {
         @Override
         public void onOpenConnectionResult(int result) {
             //result 0成功  1 失败
-            Toast.makeText(LiveActivity.this,"打开推流连接 状态："+result+ " 推流地址："+rtmpUrl,Toast.LENGTH_LONG).show();
+            rtmpUrl = etRtmpUrl.getText().toString();
+            Toast.makeText(LiveActivity.this,"Start streaming status: "+result+ " Stream address: "+rtmpUrl,Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onWriteError(int errno) {
-            Toast.makeText(LiveActivity.this,"推流出错,请尝试重连",Toast.LENGTH_LONG).show();
+            Toast.makeText(LiveActivity.this,"Streaming error, try again.",Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onCloseConnectionResult(int result) {
             //result 0成功  1 失败
-            Toast.makeText(LiveActivity.this,"关闭推流连接 状态："+result,Toast.LENGTH_LONG).show();
+            Toast.makeText(LiveActivity.this,"Stop streaming status: "+result,Toast.LENGTH_LONG).show();
         }
     };
 

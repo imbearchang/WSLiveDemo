@@ -5,6 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.wangshuo.wslive.wslivedemo.LiveActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="5dp">
+
+        <EditText
+            android:id="@+id/et_rtmpUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="rtmp://ossrs.net/ych/18dky"
+            android:background="@drawable/rounded_edittext"
+            android:autoSizeStepGranularity="2sp"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,22 +32,24 @@
             android:id="@+id/btn_swapCamera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="前后置"/>
+            android:text="Switch"/>
         <Button
             android:id="@+id/btn_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="滤镜"/>
+            android:visibility="gone"
+            android:text="Filter"/>
         <Button
             android:id="@+id/btn_screenshot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="截帧"/>
+            android:text="Shot"/>
         <Button
             android:id="@+id/btn_mirror"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="镜像"/>
+            android:visibility="gone"
+            android:text="Mirror"/>
 
     </LinearLayout>
 
@@ -49,23 +65,25 @@
             android:id="@+id/btn_startStreaming"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="开始推流"/>
+            android:text="Start Live"/>
         <Button
             android:id="@+id/btn_stopStreaming"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="停止推流"/>
+            android:text="Stop Live"/>
 
         <Button
             android:id="@+id/btn_startRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="开始录制"/>
+            android:visibility="gone"
+            android:text="Start Rec"/>
         <Button
             android:id="@+id/btn_stopRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="保存录制"/>
+            android:visibility="gone"
+            android:text="Stop Rec"/>
 
 
     </LinearLayout>
@@ -76,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="gone"/>
+        />
 
 
 </RelativeLayout>
