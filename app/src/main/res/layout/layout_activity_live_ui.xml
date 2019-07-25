@@ -15,7 +15,7 @@
             android:id="@+id/et_rtmpUrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="rtmp://ossrs.net/ych/18dky"
+            android:text="rtmp://a.rtmp.youtube.com/live2/tajd-zw1b-wm5t-3dgj"
             android:background="@drawable/rounded_edittext"
             android:autoSizeStepGranularity="2sp"/>
     </LinearLayout>
@@ -27,6 +27,43 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="60dp"
         android:orientation="vertical">
+
+
+
+
+        <TextView
+            android:id="@+id/textView_video_framerate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_video_framerate"
+            android:layout_marginTop="24dp"
+            android:background="@color/colorGray"/>
+
+
+        <Spinner
+            android:id="@+id/spinner_video_framerate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/options_framerate_keys"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGray"/>
+
+        <TextView
+            android:id="@+id/textView_video_bitrate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_video_bitrate"
+            android:layout_marginTop="24dp"
+            android:background="@color/colorGray"/>
+
+
+        <Spinner
+            android:id="@+id/spinner_video_bitrate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/options_bitrate_keys"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGray"/>
 
 
         <Button
@@ -42,6 +79,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:text="Mirror"/>
+
 
     </LinearLayout>
 

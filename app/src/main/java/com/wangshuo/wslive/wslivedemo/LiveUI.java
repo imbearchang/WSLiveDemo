@@ -3,9 +3,11 @@ package com.wangshuo.wslive.wslivedemo;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import me.lake.librestreaming.core.listener.RESScreenShotListener;
@@ -36,6 +38,8 @@ public class LiveUI implements View.OnClickListener {
     private Button btnScreenshot;
     private Button btnMirror;
     private EditText etRtmlUrl;
+    private Spinner spFPS;
+    private Spinner spBitrate;
 
 
     private ImageView imageView;
@@ -83,6 +87,39 @@ public class LiveUI implements View.OnClickListener {
 
         etRtmlUrl = (EditText) activity.findViewById(R.id.et_rtmpUrl);
         rtmpUrl = etRtmlUrl.getText().toString();
+
+        spFPS = (Spinner) activity.findViewById(R.id.spinner_video_framerate);
+        spFPS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                int videoFramerate = activity.getResources().getIntArray(R.array.options_framerate_values)[position];
+                liveCameraView.reSetVideoFPS(videoFramerate);
+                Log.d("LiveUI", "Will set fps to " + videoFramerate);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+        spBitrate = (Spinner) activity.findViewById(R.id.spinner_video_bitrate);
+        spBitrate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                int videoBitrate = activity.getResources().getIntArray(R.array.options_bitrate_values)[position];
+                liveCameraView.reSetVideoBitrate(videoBitrate);
+                Log.d("LiveUI", "Will set bitrate to " + videoBitrate);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                ;
+            }
+
+        });
+
     }
 
     @Override
