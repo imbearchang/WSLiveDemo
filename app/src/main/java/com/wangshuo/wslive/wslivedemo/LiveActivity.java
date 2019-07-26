@@ -1,8 +1,12 @@
 package com.wangshuo.wslive.wslivedemo;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,13 +36,46 @@ public class LiveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live);
         StatusBarUtils.setTranslucentStatus(this);
-
-        initLiveConfig();
-        etRtmpUrl = (EditText) this.findViewById(R.id.et_rtmpUrl);
-        rtmpUrl = etRtmpUrl.getText().toString();
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//            //ask for authorisation
+//
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))
+//            {
+//
+//            }
+//            else {
+//                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 133);
+//            }
+//        } else {
+//            //start your camera
+            initLiveConfig();
+            etRtmpUrl = (EditText) this.findViewById(R.id.et_rtmpUrl);
+            rtmpUrl = etRtmpUrl.getText().toString();
 //        rtmpUrl = "rtmp://a.rtmp.youtube.com/live2/tajd-zw1b-wm5t-3dgj";
-        mLiveUI = new LiveUI(this,mLiveCameraView,rtmpUrl);
+            mLiveUI = new LiveUI(this,mLiveCameraView,rtmpUrl);
+
+//        }
     }
+
+//    @Override
+//
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions,  int[] grantResults) {
+//
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//
+//        if (requestCode == 133) {
+//
+//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
+//
+//            } else {
+//
+//                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
+//
+//            }
+//
+//        }}//end onRequestPermissionsResult
 
     /**
      * 设置推流参数
@@ -86,4 +123,6 @@ public class LiveActivity extends AppCompatActivity {
         super.onDestroy();
         mLiveCameraView.destroy();
     }
+
+
 }

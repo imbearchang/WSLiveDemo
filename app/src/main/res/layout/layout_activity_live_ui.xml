@@ -15,7 +15,7 @@
             android:id="@+id/et_rtmpUrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="rtmp://a.rtmp.youtube.com/live2/tajd-zw1b-wm5t-3dgj"
+            android:text="rtmp://ossrs.net/ych/18dky"
             android:background="@drawable/rounded_edittext"
             android:autoSizeStepGranularity="2sp"/>
     </LinearLayout>
