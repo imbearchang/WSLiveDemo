@@ -9,14 +9,12 @@
     </style>
 
     <string-array name="options_bitrate_keys">
-        <item>6 Mbps</item>
         <item>4 Mbps</item>
         <item>2 Mbps</item>
         <item>1 Mbps</item>
     </string-array>
 
     <integer-array name="options_bitrate_values">
-        <item>6144000</item>
         <item>4096000</item>
         <item>2048000</item>
         <item>1024000</item>
