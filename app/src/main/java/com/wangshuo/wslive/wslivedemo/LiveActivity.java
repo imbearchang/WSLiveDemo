@@ -31,51 +31,112 @@ public class LiveActivity extends AppCompatActivity {
     private LiveUI mLiveUI;
     private EditText etRtmpUrl;
 
+    private final int MY_PERMISSIONS_RECORD_AUDIO = 1;
+    private final int MY_PERMISSIONS_CAMERA = 2;
+    private final int MY_PERMISSIONS_CAMERA_AND_AUDIO = 3;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live);
         StatusBarUtils.setTranslucentStatus(this);
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//            //ask for authorisation
-//
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))
-//            {
-//
-//            }
-//            else {
-//                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 133);
-//            }
-//        } else {
-//            //start your camera
-            initLiveConfig();
-            etRtmpUrl = (EditText) this.findViewById(R.id.et_rtmpUrl);
-            rtmpUrl = etRtmpUrl.getText().toString();
-//        rtmpUrl = "rtmp://a.rtmp.youtube.com/live2/tajd-zw1b-wm5t-3dgj";
-            mLiveUI = new LiveUI(this,mLiveCameraView,rtmpUrl);
-
-//        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED
+                ||
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.RECORD_AUDIO)
+                        != PackageManager.PERMISSION_GRANTED)
+        {
+            //ask for authorisation
+            requestCameraAndAudioPermission();
+        } else {
+            //start your camera
+            readyToStart();
+        }
     }
 
-//    @Override
-//
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions,  int[] grantResults) {
-//
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//
-//        if (requestCode == 133) {
-//
-//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//
-//                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
-//
-//            } else {
-//
-//                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
-//
-//            }
-//
-//        }}//end onRequestPermissionsResult
+    private void readyToStart() {
+        initLiveConfig();
+        etRtmpUrl = (EditText) this.findViewById(R.id.et_rtmpUrl);
+        rtmpUrl = etRtmpUrl.getText().toString();
+        mLiveUI = new LiveUI(this,mLiveCameraView,rtmpUrl);
+
+    }
+
+    private void requestCameraAndAudioPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED
+        || ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            //When permission is not granted by user, show them message why this permission is needed.
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CAMERA)) {
+                Toast.makeText(this, "Please grant permissions to camera and audio", Toast.LENGTH_LONG).show();
+
+                //Give user option to still opt-in the permissions
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA,
+                        Manifest.permission.RECORD_AUDIO},
+                        MY_PERMISSIONS_CAMERA_AND_AUDIO);
+
+            } else {
+                // Show user dialog to grant permission to record audio
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA,
+                                Manifest.permission.RECORD_AUDIO},
+                        MY_PERMISSIONS_CAMERA_AND_AUDIO);
+            }
+        }
+        //If permission is granted, then go ahead recording audio
+        else if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            //Go ahead with recording audio now
+            readyToStart();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,  int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_PERMISSIONS_CAMERA) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        if (requestCode == MY_PERMISSIONS_RECORD_AUDIO ) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // permission was granted, yay!
+                Toast.makeText(this, "Permissions granted to record audio", Toast.LENGTH_LONG).show();
+            } else {
+                // permission denied, boo! Disable the
+                // functionality that depends on this permission.
+                Toast.makeText(this, "Permissions Denied to record audio", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        if (requestCode == MY_PERMISSIONS_CAMERA_AND_AUDIO) {
+            if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                readyToStart();
+            } else {
+                Toast.makeText(this, "Permissions Denied to use camera and record audio", Toast.LENGTH_LONG).show();
+            }
+        }
+    }//end onRequestPermissionsResult
 
     /**
      * 设置推流参数
