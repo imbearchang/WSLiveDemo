@@ -20,6 +20,8 @@
             android:autoSizeStepGranularity="2sp"/>
         <!--
         android:text="rtmp://a.rtmp.youtube.com/live2/tajd-zw1b-wm5t-3dgj"
+        rtmp://10.10.80.63/live/Bk_Mxeg7r
+        rtmp://192.168.1.1/live/demo
         -->
     </LinearLayout>
 

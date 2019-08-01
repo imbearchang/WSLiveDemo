@@ -148,8 +148,8 @@ public class LiveActivity extends AppCompatActivity {
         streamAVOption = new StreamAVOption();
         streamAVOption.streamUrl = rtmpUrl;
         streamAVOption.cameraIndex = 0;
-        streamAVOption.videoWidth = 1920;
-        streamAVOption.videoHeight = 1080;
+        streamAVOption.videoWidth = 1080;
+        streamAVOption.videoHeight = 1920;
 
         //参数配置 end
 
