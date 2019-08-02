@@ -21,14 +21,12 @@
     </integer-array>
 
     <string-array name="options_framerate_keys">
-        <item>60 FPS</item>
         <item>30 FPS</item>
         <item>24 FPS</item>
         <item>15 FPS</item>
     </string-array>
 
     <integer-array name="options_framerate_values">
-        <item>60</item>
         <item>30</item>
         <item>24</item>
         <item>15</item>
